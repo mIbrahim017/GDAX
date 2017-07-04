@@ -1,5 +1,6 @@
 package com.app.gdax
 
+import android.arch.lifecycle.LiveData
 import android.arch.persistence.room.*
 
 /**
@@ -120,6 +121,10 @@ interface MatchOrdersDao {
 
     @Delete
     fun delete(matchOrders: List<MatchOrder>)
+
+
+    @Query("SELECT * FROM MATCH_ORDERS ORDER BY SEQUENCE DESC")
+    fun loadMatchedOrdersSync(): LiveData<List<MatchOrder>>
 }
 
 

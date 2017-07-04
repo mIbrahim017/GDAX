@@ -1,5 +1,6 @@
 package com.app.gdax
 
+import android.os.Looper
 import okhttp3.*
 import java.util.concurrent.TimeUnit
 
