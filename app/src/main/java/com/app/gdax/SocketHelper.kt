@@ -1,5 +1,8 @@
 package com.app.gdax
 
+import android.arch.lifecycle.Lifecycle
+import android.arch.lifecycle.LifecycleObserver
+import android.arch.lifecycle.OnLifecycleEvent
 import android.os.Looper
 import okhttp3.*
 import java.util.concurrent.TimeUnit
@@ -8,7 +11,7 @@ import java.util.concurrent.TimeUnit
  * Created by mohamed ibrahim on 6/30/2017.
  */
 
-class SocketHelper(val db: AppDatabase) {
+class SocketHelper: LifecycleObserver {
 
     val parser = MessageParser(db)
 
@@ -36,7 +39,11 @@ class SocketHelper(val db: AppDatabase) {
         }
 
         override fun onFailure(webSocket: WebSocket?, t: Throwable?, response: Response?) {
-            e("onFailure :" + t?.message)
+            e("FAILURE------------------------------------------------------------")
+            e(t)
+            e(t?.stackTrace)
+            t?.printStackTrace()
+            e(response)
 
         }
 
@@ -54,6 +61,7 @@ class SocketHelper(val db: AppDatabase) {
     val webSocket = client.newWebSocket(request, listener);
 
 
+    @OnLifecycleEvent(Lifecycle.Event.ON_DESTROY)
     fun shutDown() {
         webSocket.close(1000, "Goodbye!")
         client.dispatcher().executorService().shutdown();

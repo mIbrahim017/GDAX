@@ -6,7 +6,7 @@ android {
     buildToolsVersion "25.0.3"
     defaultConfig {
         applicationId "com.app.gdax"
-        minSdkVersion 19
+        minSdkVersion 21
         targetSdkVersion 25
         versionCode 1
         versionName "1.0"
@@ -40,8 +40,9 @@ dependencies {
     compile "org.jetbrains.anko:anko-sdk25:$anko_version" // sdk15, sdk19, sdk21, sdk23 are also available
     compile "org.jetbrains.anko:anko-appcompat-v7:$anko_version"
     compile 'org.jetbrains.anko:anko-recyclerview-v7:0.9'
-
+    compile "org.jetbrains.anko:anko-design:$anko_version"
     // Coroutine listeners for Anko Layouts
+
     compile "org.jetbrains.anko:anko-sdk25-coroutines:$anko_version"
     compile "org.jetbrains.anko:anko-appcompat-v7-coroutines:$anko_version"
 
@@ -58,6 +59,7 @@ dependencies {
     compile "android.arch.persistence.room:runtime:1.0.0-alpha3"
     kapt  "android.arch.persistence.room:compiler:1.0.0-alpha3"
     compile 'com.android.support:recyclerview-v7:25.3.1'
+    compile 'com.android.support:design:25.3.1'
     compile 'com.android.support.constraint:constraint-layout:1.0.2'
 }
 repositories {
