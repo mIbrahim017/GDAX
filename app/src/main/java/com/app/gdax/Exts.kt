@@ -1,5 +1,6 @@
 package com.app.gdax
 
+import android.content.Context
 import android.graphics.Color
 import android.util.Log
 
@@ -17,3 +18,4 @@ val primaryColorLight = Color.parseColor("#2F3D45")
 fun Any.e(any: Any? = "no message provided") {
     Log.e(this.javaClass.simpleName + "~", any.toString())
 }
+
