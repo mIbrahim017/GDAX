@@ -16,9 +16,8 @@ class App : Application(){
     companion  object {
         var db : AppDatabase ? =null
     }
-
-
-    override fun onCreate() {
+      
+	 override fun onCreate() {
         db = Room.databaseBuilder(this ,AppDatabase::class.java ,"GDAX").build()
         super.onCreate()
     }
