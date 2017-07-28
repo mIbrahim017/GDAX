@@ -8,6 +8,8 @@ import android.support.design.widget.AppBarLayout
 import android.support.v4.widget.DrawerLayout
 import android.view.Gravity
 import android.widget.Toolbar
+import com.github.kittinunf.fuel.android.extension.responseJson
+import com.github.kittinunf.fuel.httpGet
 import org.jetbrains.anko.*
 import org.jetbrains.anko.design.appBarLayout
 import org.jetbrains.anko.design.coordinatorLayout
@@ -21,11 +23,31 @@ class MainActivity : LifecycleActivity() {
 
     fun clearDatabase() {
         thread {
-            with(db.receivedOrdersDao()) { this.delete(this.getAll()) }
-            with(db.openOrdersDao()) { this.delete(this.getAll()) }
-            with(db.changeOrdersDao()) { this.delete(this.getAll()) }
-            with(db.doneOrdersDao()) { this.delete(this.getAll()) }
-            with(db.matchOrdersDao()) { this.delete(this.getAll()) }
+            with(db.receivedOrdersDao()) { delete(getAll()) }
+            with(db.openOrdersDao()) { delete(getAll()) }
+            with(db.changeOrdersDao()) { delete(getAll()) }
+            with(db.doneOrdersDao()) { delete(getAll()) }
+            with(db.matchOrdersDao()) { delete(getAll()) }
+        }
+    }
+
+    val endpoint = "https://api.gdax.com/products/ETH-USD/book?level=2"
+
+
+    fun x() {
+        endpoint.httpGet().responseJson { resquest, response, result ->
+            result.fold({ data ->
+                val json = data.obj()
+                val sequence = json["sequence"]
+                val bids = json.getJSONArray("bids")
+                val asks = json.getJSONArray("asks")
+                e(data)
+                e(sequence)
+                e(bids)
+                e(asks)
+
+
+            }, { error -> e(error) })
         }
     }
 
@@ -42,6 +64,9 @@ class MainActivity : LifecycleActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        clearDatabase()
+        x()
 
         lifecycle.addObserver(SocketHelper())
         val viewModel = ViewModelProviders.of(this@MainActivity).get(TradeHistoryViewModel::class.java)

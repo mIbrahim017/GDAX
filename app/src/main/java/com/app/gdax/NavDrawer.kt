@@ -15,8 +15,8 @@ data class NavDrawerEntry(val title: String, val fragment: Fragment)
 
 val navDrawerItems = arrayOf(
                 NavDrawerEntry("Trade History", TradeHistoryFragment()),
-                NavDrawerEntry("Order Book", OrdersFragment()),
-               NavDrawerEntry("Charts", OrdersFragment()))
+                NavDrawerEntry("Order Book", OpenOrdersFragment()),
+               NavDrawerEntry("Charts", OpenOrdersFragment()))
 
 
 class NavDrawer(ctx: Context, action: (NavDrawerEntry) -> Unit) : _LinearLayout(ctx) {

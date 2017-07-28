@@ -17,7 +17,7 @@ import java.util.concurrent.TimeUnit
 data class Trade(val isBuy: Boolean, val size: Float, val price: Float, val time: String)
 
 
-class MyAdapter() : RecyclerView.Adapter<VH>() {
+class TradeHistoryAdapter() : RecyclerView.Adapter<VH>() {
 
     val trades = mutableListOf<Trade>()
 

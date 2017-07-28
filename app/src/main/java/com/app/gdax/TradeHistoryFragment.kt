@@ -20,7 +20,7 @@ class TradeHistoryFragment : LifecycleFragment() {
                 ViewModelProviders.of(this).get(TradeHistoryViewModel::class.java)
 
         return context.recyclerView {
-            val myAdapter = MyAdapter()
+            val myAdapter = TradeHistoryAdapter()
             adapter = myAdapter
             viewModel.trads.observe(this@TradeHistoryFragment, Observer {
                 if (it != null) {

@@ -17,13 +17,15 @@ data class OpenOrder(
         @ColumnInfo var type: String,
         @ColumnInfo var time: String,
         @ColumnInfo var order_id: String,
-        @ColumnInfo var price: String,
-        @ColumnInfo var remaining_size: String,
+        @ColumnInfo var price: Float,
+        @ColumnInfo var remaining_size: Float,
         @ColumnInfo var side: String)
 
 
 @Dao
 interface OpenOrdersDao {
+    @Query("SELECT * FROM OPEN_ORDERS ORDER BY SEQUENCE DESC")
+    fun loadOpenOrdersSync(): LiveData<List<OpenOrder>>
 
     @Query("SELECT * FROM OPEN_ORDERS ORDER By PRICE DESC")
     fun getAll(): List<OpenOrder>
@@ -40,14 +42,14 @@ interface OpenOrdersDao {
  */
 @Entity(tableName = "RECEIVED_ORDERS")
 data class ReceivedOrder(
-        @PrimaryKey var sequence: Int ,
-        @ColumnInfo var type: String ,
-        @ColumnInfo var time: String ,
-        @ColumnInfo var order_id: String ,
-        @ColumnInfo var size: String ,
-        @ColumnInfo var price: String ,
-        @ColumnInfo var funds: String ,
-        @ColumnInfo var side: String ,
+        @PrimaryKey var sequence: Int,
+        @ColumnInfo var type: String,
+        @ColumnInfo var time: String,
+        @ColumnInfo var order_id: String,
+        @ColumnInfo var size: String,
+        @ColumnInfo var price: String,
+        @ColumnInfo var funds: String,
+        @ColumnInfo var side: String,
         @ColumnInfo var order_type: String
 )
 
@@ -71,13 +73,13 @@ interface ReceivedOrdersDao {
 
 @Entity(tableName = "DONE_ORDERS")
 data class DoneOrder(@PrimaryKey var sequence: Int = 0,
-                     @ColumnInfo var type: String ,
-                     @ColumnInfo var time: String ,
-                     @ColumnInfo var price: String ,
-                     @ColumnInfo var order_id: String ,
-                     @ColumnInfo var reason: String ,
-                     @ColumnInfo var side: String ,
-                     @ColumnInfo var remaining_size: String )
+                     @ColumnInfo var type: String,
+                     @ColumnInfo var time: String,
+                     @ColumnInfo var price: String,
+                     @ColumnInfo var order_id: String,
+                     @ColumnInfo var reason: String,
+                     @ColumnInfo var side: String,
+                     @ColumnInfo var remaining_size: String)
 
 
 @Dao
@@ -99,11 +101,11 @@ interface DoneOrdersDao {
 @Entity(tableName = "MATCH_ORDERS")
 data class MatchOrder(
         @PrimaryKey var sequence: Int = 0,
-        @ColumnInfo var type: String ,
+        @ColumnInfo var type: String,
         @ColumnInfo var trade_id: Int = 0,
-        @ColumnInfo var maker_order_id: String ,
-        @ColumnInfo var taker_order_id: String ,
-        @ColumnInfo var time: String ,
+        @ColumnInfo var maker_order_id: String,
+        @ColumnInfo var taker_order_id: String,
+        @ColumnInfo var time: String,
         @ColumnInfo var size: Float = 0f,
         @ColumnInfo var price: Float = 0f,
         @ColumnInfo var side: String
@@ -134,12 +136,12 @@ interface MatchOrdersDao {
 @Entity(tableName = "CHANGE_ORDERS")
 data class ChangeOrder(
         @PrimaryKey var sequence: Int = 0,
-        @ColumnInfo var type: String ,
-        @ColumnInfo var time: String ,
-        @ColumnInfo var order_id: String ,
-        @ColumnInfo var new_size: String ,
-        @ColumnInfo var old_size: String ,
-        @ColumnInfo var price: String ,
+        @ColumnInfo var type: String,
+        @ColumnInfo var time: String,
+        @ColumnInfo var order_id: String,
+        @ColumnInfo var new_size: String,
+        @ColumnInfo var old_size: String,
+        @ColumnInfo var price: String,
         @ColumnInfo var side: String
 )
 

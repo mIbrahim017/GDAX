@@ -6,7 +6,7 @@ import org.json.JSONObject
  * Created by mohamed ibrahim on 6/30/2017.
  */
 
-class MessageParser (val db :AppDatabase){
+class MessageParser(val db: AppDatabase) {
 
     fun readMessage(msg: String) {
         val JSON = JSONObject(msg)
@@ -22,6 +22,7 @@ class MessageParser (val db :AppDatabase){
 
 
     }
+
     private fun readChangeMessage(json: JSONObject) {
         val sequence = json["sequence"] as Int
         val time = json["time"] as String
@@ -63,8 +64,8 @@ class MessageParser (val db :AppDatabase){
         val sequence = json["sequence"] as Int
         val time = json["time"] as String
         val order_id = json["order_id"] as String
-        val price = json["price"] as String
-        val remaining_size = json["remaining_size"] as String
+        val price = json.getString("price").toFloat()
+        val remaining_size = json.getString("remaining_size").toFloat()
         val side = json["side"] as String
         val event = OpenOrder(sequence, "open", time, order_id, price, remaining_size, side)
         db.openOrdersDao().insert(event)
